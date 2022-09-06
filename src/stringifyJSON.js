@@ -18,6 +18,7 @@ var stringifyJSON = function(obj) {
   if (obj.constructor === String) {
     return '"' + obj + '"';
   }
+
   if (obj.constructor === Array) {
     console.log(obj);
     if (obj[0] === undefined) {
@@ -30,5 +31,19 @@ var stringifyJSON = function(obj) {
       console.log(sum);
     }
     return '[' + sum.substring(0, sum.length - 1) + ']';
+  }
+  if (obj.constructor === Object) {
+    if (Object.keys(obj)[0] === undefined) {
+      return '{}';
+    }
+    sum = '';
+    for(var key in obj) {
+      sum += stringifyJSON(key) + ':';
+      if (obj[key] === undefined) {
+        return '{}';
+      }
+      sum += stringifyJSON(obj[key]) + ',';
+    }
+    return '{' + sum.substring(0, sum.length - 1) + '}';
   }
 };
