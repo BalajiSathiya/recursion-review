@@ -5,4 +5,30 @@
 
 var stringifyJSON = function(obj) {
   // your code goes here
+  //obj.constructor === Function, Array, null, undefined, Object
+  console.log(obj);
+  var sum;
+  if (obj === null || obj === undefined) {
+    return String(obj);
+  }
+  if (obj.constructor === Number || obj.constructor === Boolean) {
+    //console.log(String(obj));
+    return String(obj);
+  }
+  if (obj.constructor === String) {
+    return '"' + obj + '"';
+  }
+  if (obj.constructor === Array) {
+    console.log(obj);
+    if (obj[0] === undefined) {
+      return "[]";
+    }
+    sum = '';
+    for (var i = 0; i < obj.length; i++) {
+      console.log(obj[i]);
+      sum += stringifyJSON(obj[i]) + ',';
+      console.log(sum);
+    }
+    return '[' + sum.substring(0, sum.length - 1) + ']';
+  }
 };
